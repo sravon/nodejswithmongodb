@@ -16,7 +16,7 @@ module.exports = () => {
     .catch(err => console.log(err.message));
 
   mongoose.connection.on('connected', () => {
-    console.log('Mongoose connected to mongodb...');
+    console.log('Mongoose connected to mongoDB...');
   });
 
   mongoose.connection.on('error', err => {
