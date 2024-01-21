@@ -13,18 +13,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Extract version timestamp
+        id: date
+        run: echo "date=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_OUTPUT
       
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v5
         with:
           images:  ${{ secrets.DOCKERHUB_USERNAME }}/nodejswithmongodb
-          tags: |
-            type=schedule,enable=true,priority=1000,prefix=,suffix=,pattern=nightly
-
-      - name: Extract version timestamp
-        id: date
-        run: echo "date=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_OUTPUT
+          tags: ${{ steps.date.outputs.date }}
 
       - name: Login to DockerHub
         uses: docker/login-action@v3
