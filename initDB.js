@@ -11,7 +11,7 @@ module.exports = () => {
       useFindAndModify: false
     })
     .then(() => {
-      console.log('Mongodb connected....');
+      console.log('Mongodb connected.......');
     })
     .catch(err => console.log(err.message));
 
