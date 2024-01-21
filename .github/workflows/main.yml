@@ -5,4 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: my-step
-        run: echo ${{secrets.DOCKERHUB_USERNAME}}
+        run: echo "$DOCKERHUB_USERNAME" > key
+        shell: bash
+        env:
+          DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
