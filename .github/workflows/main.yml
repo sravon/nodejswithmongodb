@@ -20,7 +20,7 @@ jobs:
         with:
           images:  ${{ secrets.DOCKERHUB_USERNAME }}/nodejswithmongodb
           tags: |
-            type=schedule
+            type=schedule,enable=true,priority=1000,prefix=,suffix=,pattern=nightly
 
       - name: Extract version timestamp
         id: date
