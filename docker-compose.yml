@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  # MongoDB service
+  mongo_db:
+    container_name: db_container
+    image: mongo:6-jammy
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo_db:/data/db
+  # nodeJs api
+  api:
+    build: .
+    ports:
+      - 4000:3000
+    environment:
+      PORT: 3000
+      MONGODB_URL: mongodb://mongodb:27017/node-boilerplate
+    depends_on:
+      - mongo_db
+
+volumes:
+  mongo_db: {}
