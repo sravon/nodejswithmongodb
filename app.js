@@ -25,7 +25,7 @@ app.use((req, res, next) => {
   next(err);
   */
   // You can use the above code if your not using the http-errors module
-  next(createError(404, 'Not found'));
+  next(createError(404, 'Not found!'));
 });
 
 //Error handler

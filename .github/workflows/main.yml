@@ -17,9 +17,9 @@ jobs:
       - name: docker login
         env:
           DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
-          DOCKER_TOKEN: ${{secrets.DOCKER_TOKEN}}
+          DOCKERHUB_TOKEN: ${{secrets.DOCKERHUB_TOKEN}}
         run: |
-          docker login -u $DOCKERHUB_USERNAME -p $DOCKER_TOKEN
+          docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_TOKEN
       - name: Build the docker image
         run: docker build . --file Dockerfile --tag abdur890000/nodejswithmongodb:$(date+%s)
 
