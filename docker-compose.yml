@@ -13,13 +13,21 @@ services:
   # nodeJs api
   api:
     build: .
+    container_name: api-container
     ports:
       - 4000:3000
+    command: sleep infinity
     environment:
       PORT: 3000
       MONGODB_URL: mongodb://mongodb:27017/node-boilerplate
     depends_on:
       - mongo_db
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: api-container
 
 volumes:
   mongo_db: {}
