@@ -1,5 +1,9 @@
 name: hello-world
-on: push
+on: 
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 jobs:
   my-job:
     runs-on: ubuntu-latest
@@ -9,3 +13,15 @@ jobs:
         shell: bash
         env:
           DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
+      - uses: actions/checkout@v4
+      - name: docker login
+        env:
+          DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
+          DOCKER_TOKEN: ${{secrets.DOCKER_TOKEN}}
+        run: |
+          docker login -u $DOCKERHUB_USERNAME -p $DOCKER_TOKEN
+      - name: Build the docker image
+        run: docker build . --file Dockerfile --tag abdur890000/nodejswithmongodb:$(date+%s)
+
+      - name: Docker Push
+        run: docker push ${{secrets.DOCKERHUB_USERNAME}}/nodejswithmongodb
