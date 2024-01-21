@@ -19,6 +19,8 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images:  ${{ secrets.DOCKERHUB_USERNAME }}/nodejswithmongodb
+          tags: |
+            type=schedule
 
       - name: Extract version timestamp
         id: date
@@ -35,5 +37,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: v2
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
