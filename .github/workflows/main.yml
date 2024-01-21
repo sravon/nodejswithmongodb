@@ -44,5 +44,5 @@ jobs:
         with:
           host: 147.182.236.85
           username: root
-          key: ${{ secrets.SERVERKEY }}
+          key: ${{ secrets.SERVERPASS }}
           script: whoami
