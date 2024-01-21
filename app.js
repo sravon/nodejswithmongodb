@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 require('./initDB')();
 
 app.get('/',(rq,res)=>{
-  res.status(200).json({message:"It's is work"})
+  res.status(200).json({message:"It's is work!"})
 })
 
 const ProductRoute = require('./Routes/Product.route');

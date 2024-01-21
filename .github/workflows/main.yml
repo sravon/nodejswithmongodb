@@ -4,24 +4,32 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
 jobs:
   my-job:
     runs-on: ubuntu-latest
     steps:
-      - name: my-step
-        run: 'echo "$DOCKERHUB_USERNAME" > key'
-        shell: bash
-        env:
-          DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
-      - uses: actions/checkout@v4
-      - name: docker login
-        env:
-          DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
-          DOCKERHUB_TOKEN: ${{secrets.DOCKERHUB_TOKEN}}
-        run: |
-          docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_TOKEN
-      - name: Build the docker image
-        run: docker build . --file Dockerfile --tag abdur890000/nodejswithmongodb:$(date+%s)
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: name/app
 
-      - name: Docker Push
-        run: docker push ${{secrets.DOCKERHUB_USERNAME}}/nodejswithmongodb
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
