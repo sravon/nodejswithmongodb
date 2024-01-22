@@ -7,6 +7,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+console.log("Url check")
+console.log(process.env.MONGODB_URI)
 // Initialize DB
 require('./initDB')();
 
