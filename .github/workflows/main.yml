@@ -47,5 +47,6 @@ jobs:
           key: ${{ secrets.SERVERPASS }}
           script: |
             whoami
-            git clone https://github.com/sravon/nodejswithmongodb.git
+            git pull
+            docker-compose up --build -d
           

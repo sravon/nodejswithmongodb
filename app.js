@@ -7,13 +7,11 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-console.log("Url check")
-console.log(process.env.MONGODB_URI)
 // Initialize DB
 require('./initDB')();
 
 app.get('/',(rq,res)=>{
-  res.status(200).json({message:"It's is working!"})
+  res.status(200).json({message:"It's is working in live server!"})
 })
 
 const ProductRoute = require('./Routes/Product.route');
