@@ -45,5 +45,7 @@ jobs:
           host: 147.182.236.85
           username: root
           key: ${{ secrets.SERVERPASS }}
-          script: whoami
+          script: |
+            whoami
+            git clone https://github.com/sravon/nodejswithmongodb.git
           
