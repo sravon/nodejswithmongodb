@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 
 module.exports = () => {
   mongoose
-    .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
+    .connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@mongo:27017/test`, {
+      useUnifiedTopology: true,
+      useFindAndModify: false
+    })
     .then(() => {
       console.log('Mongodb connected.......');
     })
