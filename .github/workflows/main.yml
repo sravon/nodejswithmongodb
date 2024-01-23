@@ -49,5 +49,5 @@ jobs:
             whoami
             cd nodejswithmongodb
             git pull
-            docker-compose up --build -d
+            docker compose up --build -d
           
