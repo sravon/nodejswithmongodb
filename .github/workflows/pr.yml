@@ -43,10 +43,11 @@ jobs:
 
       - name: SonarQube Scan
         run: |
-          ./gradlew sonarqube \
-            -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }} \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-
+          sonar-scanner \
+            -Dsonar.projectKey=nodeJsMongDB \
+            -Dsonar.sources=. \
+            -Dsonar.host.url=http://192.168.0.13:9000 \
+            -Dsonar.login=sqp_5e5c5bf39f37c1be988d75e2b8d486c2995b74ae
       - name: Set result
         id: accept_pr
         run: echo "result=success" # Set the result to success by default
