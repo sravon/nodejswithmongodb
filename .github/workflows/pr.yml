@@ -41,13 +41,7 @@ jobs:
           distribution: 'adopt'
           java-version: '11'
 
-      - name: SonarQube Scan
-        run: |
-          sonar-scanner \
-            -Dsonar.projectKey=nodeJsMongDB \
-            -Dsonar.sources=. \
-            -Dsonar.host.url=http://192.168.0.13:9000 \
-            -Dsonar.login=sqp_5e5c5bf39f37c1be988d75e2b8d486c2995b74ae
+
       
       - name: SonarQube Scanning
         uses: mathrix-education/sonar-scanner@master
