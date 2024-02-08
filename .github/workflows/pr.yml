@@ -1,0 +1,47 @@
+name: CI on PR
+
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    outputs:
+      result: ${{ steps.accept_pr.outputs.result }}
+    
+    strategy:
+      matrix:
+        node-version: ['14.x', '16.x', '18.x']
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      
+      - name: Install dependencies
+        run: npm install
+
+      - name: Linter test 
+        run: npm run lint
+        continue-on-error: true
+
+      - name: Unit test
+        run: npm test
+        continue-on-error: false
+
+      - name: Set up Sonar Scanner
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      
+      - name: Set result
+        id: accept_pr
+        run: echo "result=success" # Set the result to success by default
+  

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 module.exports = () => {
   mongoose
@@ -7,28 +7,28 @@ module.exports = () => {
       useFindAndModify: false
     })
     .then(() => {
-      console.log('Mongodb connected.......');
+      console.log('Mongodb connected.......')
     })
-    .catch(err => console.log(err.message));
+    .catch(err => console.log(err.message))
 
   mongoose.connection.on('connected', () => {
-    console.log('Mongoose connected to mongo..');
-  });
+    console.log('Mongoose connected to mongo..')
+  })
 
   mongoose.connection.on('error', err => {
-    console.log(err.message);
-  });
+    console.log(err.message)
+  })
 
   mongoose.connection.on('disconnected', () => {
-    console.log('Mongoose connection is disconnected...');
-  });
+    console.log('Mongoose connection is disconnected...')
+  })
 
   process.on('SIGINT', () => {
     mongoose.connection.close(() => {
       console.log(
         'Mongoose connection is disconnected due to app termination...'
-      );
-      process.exit(0);
-    });
-  });
-};
+      )
+      process.exit(0)
+    })
+  })
+}
