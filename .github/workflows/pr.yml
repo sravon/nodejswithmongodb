@@ -35,21 +35,11 @@ jobs:
         run: npm test
         continue-on-error: false
 
-      - name: Set up JDK
-        uses: actions/setup-java@v2
-        with:
-          distribution: 'adopt'
-          java-version: '11'
-
-
-      
-      - name: SonarQube Scanning
-        uses: mathrix-education/sonar-scanner@master
-        with:
-          version: 4.2.0.1873 # required
-          typescript: true
-          scan: true
-          args: --debug -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+      - name: Set up Sonar Scanner
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
       
       - name: Set result
         id: accept_pr
